@@ -7,14 +7,16 @@ import {select} from "d3-selection";
 
 import * as utils from './utils';
 import * as c from './config';
+import { Render } from './renders';
 
 
 
-csv('../data/nexts.csv', d => {
+csv('../data/nexts.csv', (d, i) => {
   d.start_date = c.parseTime(d.start_date);
   d.end_date = c.parseTime(d.end_date);
   d.tickets = c.parseTime(d.tickets);
   d.edition = +d.edition;
+  d.row = i % c.nrow
   return d;
 }).then((data) => {
   
@@ -25,8 +27,8 @@ csv('../data/nexts.csv', d => {
   const start = min(data, d => d.start_date),
         end = max(data, d => d.end_date);
 
-  // date sort by start date
-  data.sort((a, b) => a.start_date - b.start_date)
+  // // date sort by start date
+  // data.sort((a, b) => a.start_date - b.start_date)
 
 
   // size: done
@@ -35,9 +37,6 @@ csv('../data/nexts.csv', d => {
   // scales:
   const xScale = scaleTime().domain([start, end]).range([0, size.w]),
         yScale = scaleBand().domain(range(c.nrow)).range([0, size.h]).padding(0.2);
-  console.log(c.nrow)
-  console.log(yScale.domain())
-  console.log(yScale.range())
 
   // axis
   const xAxis = axisTop(xScale)
@@ -58,16 +57,17 @@ csv('../data/nexts.csv', d => {
   // inspiración estilos
   // https://www.behance.net/gallery/22277857/-Identidad-Institucional-PLANETARIO
   // https://www.behance.net/gallery/26487879/Sao-Paulo-City-Rebrand-Propose
-  svg.selectAll('rect')
+  // https://www.behance.net/gallery/6910163/IDENTITY-Coleccion-Fortabat
+  
+  const render = new Render();
+  render
+    .selection(svg)
     .data(data)
-    .enter()
-    .append('rect')
-      .attr('x', d => xScale(d.start_date))
-      .attr('y', (d, i) => {console.log(i % c.nrow); return yScale(i % c.nrow)})
-      .attr('width', d => xScale(d.end_date) - xScale(d.start_date))
-      .attr('height', yScale.bandwidth())
-      .style('fill', 'LIGHTSTEELBLUE');
+    .xScale(xScale)
+    .yScale(yScale)
+    .draw();
 
+  console.log(Render)
 
 
 }).catch(function(error){
