@@ -69,3 +69,5 @@ nexts %>%
   scale_alpha_manual(values = c(0.4, 1))
 
 
+#------- SAVE DATA FOR D3  ------
+write_csv(nexts, 'webapp/public/data/nexts.csv')

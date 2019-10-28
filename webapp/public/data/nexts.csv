@@ -1,0 +1,39 @@
+edition,event,start_date,end_date,tickets,central_date,completed,verified,advanced,category
+36,festival internacional de jazz de madrid,2019-10-28,2019-11-30,2019-09-27,NA,future,verified,yes,música
+24,LesGaiCineMad,2019-10-30,2019-11-17,2019-10-18,NA,future,verified,yes,cine
+19,semana de la ciencia,2019-11-04,2019-11-17,2019-10-21,NA,future,verified,yes,ciencia
+37,festival de otoño,2019-11-15,2019-12-01,2019-09-19,NA,future,verified,yes,artes escénicas
+34,madrid en danza,2019-12-04,2019-12-29,NA,NA,future,estimated,yes,danza
+5,año nuevo chino,2020-01-09,2020-02-09,NA,25-1-2020,future,estimated,yes,interculturas
+30,festival internacional de arte sacro,2020-02-20,2020-04-05,NA,NA,future,estimated,yes,música
+24,teatralia,2020-03-05,2020-03-29,NA,NA,future,estimated,yes,teatro
+14,la noche de los teatros,2020-03-28,2020-03-28,NA,NA,future,estimated,yes,teatro
+22,semana del cortometraje comunidad de madrid,2020-04-06,2020-04-12,NA,NA,future,estimated,no,cine
+9,mulafest,2020-04-17,2020-04-19,NA,NA,future,verified,yes,variado
+3,International Jazz Day Madrid,2020-04-24,2020-05-03,2020-04-07,30-4-2020,future,estimated,yes,música
+15,la noche de los libros,2020-04-24,2020-04-24,NA,NA,future,estimated,no,literatura
+7,surge madrid,2020-05-06,2020-05-31,NA,NA,future,estimated,yes,teatro
+17,documentamadrid,2020-05-07,2020-05-17,NA,NA,future,estimated,yes,cine
+3,música en el jardín,2020-05-17,2020-06-21,NA,NA,future,estimated,yes,música
+79,feria del libro,2020-05-29,2020-06-14,NA,NA,future,estimated,no,literatura
+4,teatralia en verano,2020-05-29,2020-07-26,NA,NA,future,estimated,yes,teatro
+15,suma flamenca,2020-06-03,2020-06-28,NA,NA,future,estimated,yes,danza
+23,photo españa,2020-06-04,2020-08-31,NA,NA,future,estimated,yes,fotografía
+20,clásicos en alcalá,2020-06-11,2020-07-05,2020-05-11,NA,future,estimated,yes,teatro
+5,cinema pride,2020-06-22,2020-06-26,NA,NA,future,estimated,no,cine
+43,madrid orgullo,2020-06-26,2020-07-05,NA,4-7-2020,future,estimated,no,interculturas
+36,veranos de la villa,2020-06-26,2020-08-30,NA,NA,future,estimated,yes,variado
+5,arqueologos por un dia,2020-07-01,2020-10-04,2020-06-10,NA,future,estimated,yes,ciencia
+33,clásicos en verano,2020-07-03,2020-07-26,NA,NA,future,estimated,yes,música
+11,noche de los investigadores,2020-09-25,2020-09-26,2020-09-15,NA,future,estimated,yes,ciencia
+32,Feria de Otoño del Libro Viejo y Antiguo,2020-10-01,2020-10-18,NA,NA,future,estimated,no,literatura
+17,semana de la arquitectura,2020-10-02,2020-10-11,2020-09-18,NA,future,estimated,yes,arquitectura
+11,world press photo,2020-10-02,2020-11-01,NA,NA,future,estimated,yes,fotografía
+6,ciclo de cine en el jardín,2020-10-07,2020-10-28,NA,NA,future,estimated,no,cine
+29,festival de cine de madrid,2020-10-08,2020-10-18,NA,NA,future,estimated,yes,cine
+10,poemad,2020-10-15,2020-11-01,NA,NA,future,estimated,yes,literatura
+8,madrid otra mirada,2020-10-16,2020-10-18,2020-10-05,NA,future,estimated,yes,arquitectura
+8,nocturna,2020-10-20,2020-10-24,2020-10-09,NA,future,estimated,yes,cine
+6,another way film festival,2020-10-22,2020-10-25,2020-09-22,NA,future,estimated,yes,cine
+3,firco,2020-10-23,2020-10-25,2020-09-29,NA,future,estimated,yes,circo
+17,Acción!MAD,2020-10-30,2020-11-27,NA,NA,future,estimated,yes,artes escénicas
