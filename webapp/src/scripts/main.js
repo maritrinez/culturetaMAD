@@ -1,69 +1,33 @@
+// d3 imports
 import {csv, json} from "d3-fetch";
-import {min, max, range, sort} from "d3-array";
-import {scaleBand, scaleTime} from "d3-scale";
-import {axisTop} from "d3-axis";
-import {select} from "d3-selection";
 
+// Classes imports
+import { Calendar } from './calendar';
 
-import * as utils from './utils';
-import * as c from './config';
-import { Render } from './renders';
+// Script imports
+import { parseTime } from './config';
 
 
 
+
+// LOAD DATA & BUILD VIZ
 csv('../data/nexts.csv', (d, i) => {
-  d.start_date = c.parseTime(d.start_date);
-  d.end_date = c.parseTime(d.end_date);
-  d.tickets = c.parseTime(d.tickets);
+  d.start_date = parseTime(d.start_date);
+  d.end_date = parseTime(d.end_date);
+  d.tickets = parseTime(d.tickets);
   d.edition = +d.edition;
   return d;
 }).then((data) => {
   
-  // ---- data
-  // date range.
-  // TODO:: extend to domains: date & max parallel events
-  // hacer esto de R, y guardar los datos en JSON
-  const start = min(data, d => d.start_date),
-        end = max(data, d => d.end_date),
-        nrow = max(data, d => d.row);
-
-
-  // size: done
-  const size = utils.size([start, end]);
-
-  // scales:
-  const xScale = scaleTime().domain([start, end]).range([0, size.w]),
-        yScale = scaleBand().domain(range(nrow)).range([0, size.h]).padding(0.2);
-
-  // axis
-  const xAxis = axisTop(xScale)
-    .tickSize(-size.h)
-    .ticks(c.axisTicks)
-    .tickFormat(c.axisFormat);
-
-  
-  // ---- render viz
-  // enter svg
-  const svg = utils.enterSvg(size);
-
-  // enter x axis
-  svg.append('g').call(xAxis);
-
-  // enter rectangles
-  // TODO:: hacer una clase que le pases el data como método
-  // inspiración estilos
-  // https://www.behance.net/gallery/22277857/-Identidad-Institucional-PLANETARIO
-  // https://www.behance.net/gallery/26487879/Sao-Paulo-City-Rebrand-Propose
-  // https://www.behance.net/gallery/6910163/IDENTITY-Coleccion-Fortabat
-  
-  const render = new Render();
-  render
-    .selection(svg)
+  // - - - INIT CALENDAR
+  const calendar = new Calendar();
+  calendar
     .data(data)
-    .xScale(xScale)
-    .yScale(yScale)
-    .draw();
+    .container('#calendar')
+    .build();
 
+  // - - - RESIZE
+  window.addEventListener('resize', () => calendar.build());
 
 }).catch(function(error){
    throw (error);

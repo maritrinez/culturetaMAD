@@ -1,8 +1,7 @@
-import {timeParse, timeFormat, timeFormatLocale} from "d3-time-format"
+import {timeParse, timeFormatLocale} from "d3-time-format"
 import {timeDay} from "d3-time"
 
-const containerId = '#calendar',
-      margin = { top: 30, right: 10, bottom: 10, left: 30 },
+const margin = { top: 30, right: 10, bottom: 10, left: 30 },
       colors = {
         "ciencia": '#C00F49',
         "arquitectura": '#FB6DB3',
@@ -40,7 +39,6 @@ const parseTime = timeParse('%Y-%m-%d'),
 
 
 export {
-  containerId, 
   margin, 
   colors,
   columnWidth,

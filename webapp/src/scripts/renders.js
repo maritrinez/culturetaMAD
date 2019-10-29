@@ -1,129 +1,123 @@
+// d3 imports
 import {select} from "d3-selection";
-import { colors } from './config';
 
-// const rects = (svg, data, xScale, yScale) => {
-//   let s = select(selector).selectAll('svg')
-//     .data([{}]);
-//   s = s.enter()
-//     .append('svg').merge(s)
-//     .style('background-color', 'hotpink')
-//     .attr('width', size.w + m.left + m.right)
-//     .attr('height', size.h + m.top + m.bottom);
-//   s.exit().remove();
-
-//   let g = s.selectAll('g').data([{}]);
-//   g = g.enter()
-//     .append('g').merge(g)
-//     .attr('transform', `translate(${m.left}, ${m.top})`);
-//   g.exit().remove();
-//   return g;
-// }
+// Script imports
+import { colors, margin } from './config';
 
 
-// export {rects, texts};
-
-// D3js & ES6 classes: http://elliotbentley.com/2017/08/09/a-better-way-to-structure-d3-code-es6-version.html 
-
-
-// class Rects {
-    
-//   constructor(opts) {
-//     this.data = opts.data;
-//     this.container = opts.container;
-//   }
-
-//   draw() {
-//     console.log(this.data)
-//     return 'lines';
-//   }
-
-//   setData(newData) {
-//     this.data = newData;
-
-//     // full redraw needed
-//     this.draw();
-//   }
-
-//   setContainer(container) {
-//     this.container = container;
-
-//     // full redraw needed
-//     this.draw();
-//   }
-// }
-
-
+// Render class
 export class Render {
   constructor () {
-    this._selection = undefined;
+    this._container = undefined;
     this._datum = undefined;
-    this._xScale = undefined;
-    this._yScale = undefined;
+    this._size = undefined;
+    this._scales = undefined;
+    this._axis = undefined;
   }
 
 
-  // Custom parameters
+  // - - - CUSTOM PARAMETERS - - - //
   data (_) {
     this._data = _;
     return this;
   }
 
-  selection (_) {
-    this._selection = _;
+  container (_) {
+    this._container = _;
     return this;
   }
 
-  xScale (_) {
-    this._xScale = _;
+  size (_) {
+    this._size = _;
     return this;
   }
 
-  yScale (_) {
-    this._yScale = _;
+  scales (_) {
+    this._scales = _;
     return this;
   }
 
-  // Functions
+  axis (_) {
+    this._axis = _;
+    return this;
+  }
+  
+  // - - - PUBLIC FUNCTIONS - - - //
+  draw() {
+    this._enterSvg();
+    this._enterAxis();
+
+    this._rects();
+    this._info();
+    this._tickets();
+  }
+  
+
+  // - - - PRIVATE FUNCTIONS - - - //
+  _enterSvg() {
+    let s = select(this._container).selectAll('svg').data([{}]);
+    s = s.enter()
+      .append('svg').merge(s)
+      .style('background-color', 'lightsteelblue')
+      .attr('width', this._size.w + margin.left + margin.right)
+      .attr('height', this._size.h + margin.top + margin.bottom);
+    s.exit().remove();
+
+    let g = s.selectAll('g').data([{}]);
+    g = g.enter()
+      .append('g').merge(g)
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    g.exit().remove();
+    return g;
+    
+
+  }
+
+  _enterAxis() {
+    this._enterGroup(this._svg(), 'x axis')
+      .call(this._axis);
+  }
+
   _rects() {
-    const _g = this._group(this._selection, 'rects');
+    const _g = this._enterGroup(this._svg(), 'rects');
 
     let _r = _g.selectAll('rect').data(this._data);
     _r = _r.enter()
       .append('rect').merge(_r)
-      .attr('x', d => this._xScale(d.start_date))
-      .attr('y', d => this._yScale(d.row))
-      .attr('width', d => this._xScale(d.end_date) - this._xScale(d.start_date))
-      .attr('height', this._yScale.bandwidth())
+      .attr('x', d => this._scales.x(d.start_date))
+      .attr('y', d => this._scales.y(d.row))
+      .attr('width', d => this._scales.x(d.end_date) - this._scales.x(d.start_date))
+      .attr('height', this._scales.y.bandwidth())
       .style('fill', d => colors[d.category]);
       
     _r.exit().remove();
   }
 
   _info() {
-    const _g = this._group(this._selection, 'info');
+    const _g = this._enterGroup(this._svg(), 'info');
 
     let _i = _g.selectAll('text').data(this._data);
     _i = _i.enter()
       .append('text').merge(_i)
-      .attr('x', d => this._xScale(d.start_date))
-      .attr('y', d => this._yScale(d.row) + this._yScale.bandwidth() / 3)
+      .attr('x', d => this._scales.x(d.start_date))
+      .attr('y', d => this._scales.y(d.row) + this._scales.y.bandwidth() / 3)
       .text(d => d.event);
       
     _i.exit().remove();
   }
 
   _tickets() {
-    const _g = this._group(this._selection, 'tickets');
+    const _g = this._enterGroup(this._svg(), 'tickets');
 
     // Lines
     let _l = _g.selectAll('line')
       .data(this._data.filter(d => d.tickets !== null));
     _l = _l.enter()
       .append('line').merge(_l)
-      .attr('x1', d => this._xScale(d.tickets))
-      .attr('x2', d => this._xScale(d.start_date))
-      .attr('y1', d => this._yScale(d.row) + this._yScale.bandwidth() / 2)
-      .attr('y2', d => this._yScale(d.row) + this._yScale.bandwidth() / 2)
+      .attr('x1', d => this._scales.x(d.tickets))
+      .attr('x2', d => this._scales.x(d.start_date))
+      .attr('y1', d => this._scales.y(d.row) + this._scales.y.bandwidth() / 2)
+      .attr('y2', d => this._scales.y(d.row) + this._scales.y.bandwidth() / 2)
       .style('stroke', d => colors[d.category]);
       
     _l.exit().remove();
@@ -133,22 +127,20 @@ export class Render {
       .data(this._data.filter(d => d.tickets !== null));
     _t = _t.enter()
       .append('circle').merge(_t)
-      .attr('cx', d => this._xScale(d.tickets))
-      .attr('cy', d => this._yScale(d.row) + this._yScale.bandwidth() / 2)
+      .attr('cx', d => this._scales.x(d.tickets))
+      .attr('cy', d => this._scales.y(d.row) + this._scales.y.bandwidth() / 2)
       .attr('r', 20)
       .style('fill', d => colors[d.category]);
       
     _t.exit().remove();
   }
 
-  draw() {
-    this._rects();
-    this._info();
-    this._tickets();
+  // Helpers
+  _svg () {
+    return select(this._container).selectAll('svg').select('g');
   }
 
-  // Helpers
-  _group(selection, classed) {
+  _enterGroup(selection, classed) {
     let _g = selection.selectAll(`g.${classed}`).data([{}]);
     _g = _g.enter()
       .append('g')

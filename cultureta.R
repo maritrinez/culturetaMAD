@@ -76,32 +76,6 @@ for (i in 1:nrow(nexts)) {
 }
 
 
-
-nexts2 <- nexts %>% 
-  mutate(row2= purrr::pmap_dbl(list(tickets, start_date), findRow))
-
-findRow <- function(tickets, start_date) {
-  start <- if_else(!is.na(tickets), tickets, start_date)
-  index <- 0
-  cooccur <- nexts %>% 
-    filter(row == index & start <= end_date) %>% 
-    nrow()
-  while (cooccur > 0) {
-    index <- index + 1
-    cooccur <- nexts %>% 
-      filter(row == index & start <= end_date) %>% 
-      nrow()
-    print(cooccur)
-  }
-  print(start)
-  
-  
-  # print(nexts)
-  return (index)
-}
-
-
-
 #------- PLOT NEXTS EVENTS ------
 # Colour by category
 # Dashed lines for estimated
