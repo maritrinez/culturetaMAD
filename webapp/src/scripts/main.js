@@ -16,7 +16,6 @@ csv('../data/nexts.csv', (d, i) => {
   d.end_date = c.parseTime(d.end_date);
   d.tickets = c.parseTime(d.tickets);
   d.edition = +d.edition;
-  d.row = i % c.nrow
   return d;
 }).then((data) => {
   
@@ -25,10 +24,8 @@ csv('../data/nexts.csv', (d, i) => {
   // TODO:: extend to domains: date & max parallel events
   // hacer esto de R, y guardar los datos en JSON
   const start = min(data, d => d.start_date),
-        end = max(data, d => d.end_date);
-
-  // // date sort by start date
-  // data.sort((a, b) => a.start_date - b.start_date)
+        end = max(data, d => d.end_date),
+        nrow = max(data, d => d.row);
 
 
   // size: done
@@ -36,7 +33,7 @@ csv('../data/nexts.csv', (d, i) => {
 
   // scales:
   const xScale = scaleTime().domain([start, end]).range([0, size.w]),
-        yScale = scaleBand().domain(range(c.nrow)).range([0, size.h]).padding(0.2);
+        yScale = scaleBand().domain(range(nrow)).range([0, size.h]).padding(0.2);
 
   // axis
   const xAxis = axisTop(xScale)
@@ -67,11 +64,11 @@ csv('../data/nexts.csv', (d, i) => {
     .yScale(yScale)
     .draw();
 
-  console.log(Render)
-
 
 }).catch(function(error){
    throw (error);
 });
 
+
+// PRIVATE
 

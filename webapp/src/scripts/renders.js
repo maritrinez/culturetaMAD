@@ -1,4 +1,5 @@
 import {select} from "d3-selection";
+import { colors } from './config';
 
 // const rects = (svg, data, xScale, yScale) => {
 //   let s = select(selector).selectAll('svg')
@@ -93,7 +94,7 @@ export class Render {
       .attr('y', d => this._yScale(d.row))
       .attr('width', d => this._xScale(d.end_date) - this._xScale(d.start_date))
       .attr('height', this._yScale.bandwidth())
-      .style('fill', 'lightsteelblue');
+      .style('fill', d => colors[d.category]);
       
     _r.exit().remove();
   }
@@ -123,7 +124,7 @@ export class Render {
       .attr('x2', d => this._xScale(d.start_date))
       .attr('y1', d => this._yScale(d.row) + this._yScale.bandwidth() / 2)
       .attr('y2', d => this._yScale(d.row) + this._yScale.bandwidth() / 2)
-      .style('stroke', 'navy');
+      .style('stroke', d => colors[d.category]);
       
     _l.exit().remove();
 
@@ -135,7 +136,7 @@ export class Render {
       .attr('cx', d => this._xScale(d.tickets))
       .attr('cy', d => this._yScale(d.row) + this._yScale.bandwidth() / 2)
       .attr('r', 20)
-      .style('fill', 'navy');
+      .style('fill', d => colors[d.category]);
       
     _t.exit().remove();
   }
@@ -152,8 +153,6 @@ export class Render {
     _g = _g.enter()
       .append('g')
       .attr('class', classed);
-
-    console.log(_g)
     return _g;
   }
 }

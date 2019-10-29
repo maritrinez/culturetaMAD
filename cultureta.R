@@ -51,8 +51,55 @@ nexts <- calendar %>%
   top_n(-1, start_date) %>% 
   ungroup() %>% 
   arrange(start_date) %>% 
+  # add one day, so the day tha the event finishes also counts
+  mutate(end_date = end_date + 1) %>% 
   # Join events information
   left_join(select(events, event, advanced, category))
+
+
+# Assign event row to avoid overlaping
+nexts$row <- NA
+for (i in 1:nrow(nexts)) {
+  start <- if_else(!is.na(nexts$tickets[i]), nexts$tickets[i], nexts$start_date[i])
+  index <- 0
+  cooccur <- nexts %>% 
+    filter(row == index & start <= end_date) %>% 
+    nrow()
+  
+  while (cooccur > 0) {
+    index <- index + 1
+    cooccur <- nexts %>% 
+      filter(row == index & start <= end_date) %>% 
+      nrow()
+  }
+  nexts$row[i] <- index
+}
+
+
+
+nexts2 <- nexts %>% 
+  mutate(row2= purrr::pmap_dbl(list(tickets, start_date), findRow))
+
+findRow <- function(tickets, start_date) {
+  start <- if_else(!is.na(tickets), tickets, start_date)
+  index <- 0
+  cooccur <- nexts %>% 
+    filter(row == index & start <= end_date) %>% 
+    nrow()
+  while (cooccur > 0) {
+    index <- index + 1
+    cooccur <- nexts %>% 
+      filter(row == index & start <= end_date) %>% 
+      nrow()
+    print(cooccur)
+  }
+  print(start)
+  
+  
+  # print(nexts)
+  return (index)
+}
+
 
 
 #------- PLOT NEXTS EVENTS ------

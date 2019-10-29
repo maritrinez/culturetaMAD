@@ -4,11 +4,21 @@ import {timeDay} from "d3-time"
 const containerId = '#calendar',
       margin = { top: 30, right: 10, bottom: 10, left: 30 },
       colors = {
-        text: 'blue'
+        "ciencia": '#C00F49',
+        "arquitectura": '#FB6DB3',
+        "artes escénicas": '#073B99',
+        "danza": '#369AC4',
+        "circo": '#5867AE',
+        "teatro": '#B0E0E6',
+        "música": '#00CED1',
+        "cine": '#86C2AA',
+        "fotografía": '#9ACD32',
+        "literatura": '#F48E3A',
+        "interculturas": '#8B008B',
+        "variado": '#FFD700' 
       },
       columnWidth = 50,
-      rowHeight = 50,
-      nrow = 4;
+      rowHeight = 50;
 
 // Locale months and days names
 // https://bl.ocks.org/mbostock/805115ebaa574e771db1875a6d828949
@@ -36,6 +46,5 @@ export {
   columnWidth,
   parseTime,
   axisFormat,
-  axisTicks,
-  nrow
+  axisTicks
 };

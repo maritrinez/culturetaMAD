@@ -23,7 +23,7 @@ const enterSvg = (size) => {
     .data([{}]);
   s = s.enter()
     .append('svg').merge(s)
-    .style('background-color', 'hotpink')
+    .style('background-color', 'lightsteelblue')
     .attr('width', size.w + m.left + m.right)
     .attr('height', size.h + m.top + m.bottom);
   s.exit().remove();
