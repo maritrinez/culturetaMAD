@@ -12,9 +12,6 @@ import { Render } from './renders';
 import * as c from './config';
 
 
-
-
-
 export class Calendar {
   constructor () {
     this._data = undefined;
@@ -39,21 +36,18 @@ export class Calendar {
     console.log(this._dataDomains().rows)
     console.log(this._size())
     console.log(this._scales().x.range())
-    console.log(this._axis().ticks())
 
   
     // inspiración estilos
     // https://www.behance.net/gallery/22277857/-Identidad-Institucional-PLANETARIO
     // https://www.behance.net/gallery/26487879/Sao-Paulo-City-Rebrand-Propose
     // https://www.behance.net/gallery/6910163/IDENTITY-Coleccion-Fortabat
-    
     const render = new Render();
     render
       .container(this._container)
       .data(this._data)
       .size(this._size())
       .scales(this._scales())
-      .axis(this._axis())
       .draw();
   }
 
@@ -61,7 +55,7 @@ export class Calendar {
   // - - - PRIVATE FUNCTIONS - - - //
   _dataDomains() {
     return {
-      date: [min(this._data, d => d.start_date), max(this._data, d => d.end_date)],
+      date: [min(this._data, d => d.tickets), max(this._data, d => d.end_date)],
       rows: range(+max(this._data, d => d.row) + 1)
     }
   }
@@ -85,12 +79,5 @@ export class Calendar {
       x: scaleTime().domain(d.date).range([0, s.w]),
       y: scaleBand().domain(d.rows).range([0, s.h]).padding(0.2)
     }
-  }
-  
-  _axis () {
-    return axisTop(this._scales().x)
-      .tickSize(-this._size().h)
-      .ticks(c.axisTicks)
-      .tickFormat(c.axisFormat)
   }
 }

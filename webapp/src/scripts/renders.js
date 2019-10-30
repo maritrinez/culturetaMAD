@@ -1,6 +1,9 @@
 // d3 imports
 import {select} from "d3-selection";
 
+// Classes imports
+import { Axis } from './axis';
+
 // Script imports
 import { colors, margin } from './config';
 
@@ -12,7 +15,6 @@ export class Render {
     this._datum = undefined;
     this._size = undefined;
     this._scales = undefined;
-    this._axis = undefined;
   }
 
 
@@ -36,20 +38,21 @@ export class Render {
     this._scales = _;
     return this;
   }
-
-  axis (_) {
-    this._axis = _;
-    return this;
-  }
   
   // - - - PUBLIC FUNCTIONS - - - //
   draw() {
+    // SVG
     this._enterSvg();
-    this._enterAxis();
 
+    // Axis
+    this._axis(); 
+
+
+    // Elements
     this._rects();
     this._info();
     this._tickets();
+    this._today();
   }
   
 
@@ -58,7 +61,6 @@ export class Render {
     let s = select(this._container).selectAll('svg').data([{}]);
     s = s.enter()
       .append('svg').merge(s)
-      .style('background-color', 'lightsteelblue')
       .attr('width', this._size.w + margin.left + margin.right)
       .attr('height', this._size.h + margin.top + margin.bottom);
     s.exit().remove();
@@ -69,13 +71,24 @@ export class Render {
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
     g.exit().remove();
     return g;
-    
-
   }
 
-  _enterAxis() {
-    this._enterGroup(this._svg(), 'x axis')
-      .call(this._axis);
+  _axis() {
+    const mAxis = new Axis('monthly');
+    mAxis
+      .selection(this._svg())
+      .scale(this._scales.x)
+      .tickLength(- margin.top / 2)
+      .dy(- margin.top / 2)
+      .draw();
+
+    const dAxis = new Axis('daily');
+    dAxis
+      .selection(this._svg())
+      .scale(this._scales.x)
+      .tickLength(-this._size.h)
+      .dy(0)
+      .draw();
   }
 
   _rects() {
@@ -135,6 +148,22 @@ export class Render {
     _t.exit().remove();
   }
 
+
+  _today() {
+    console.log(this._size)
+    // Lines
+    let _l = this._svg().selectAll('.today')
+      .data([new Date()]);
+    _l = _l.enter()
+      .append('line').merge(_l)
+      .attr('x1', d => this._scales.x(d))
+      .attr('x2', d => this._scales.x(d))
+      .attr('y1', -margin.top)
+      .attr('y2', this._size.h + margin.bottom)
+      .style('stroke', 'black');
+      
+    _l.exit().remove();
+  }
   // Helpers
   _svg () {
     return select(this._container).selectAll('svg').select('g');
