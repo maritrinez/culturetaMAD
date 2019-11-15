@@ -20,3 +20,49 @@ body {
   margin:0;
 }
 
+
+/* HORIZONTAL SCROLL */
+
+/* examples:
+http://polygraph.cool/
+https://2018inmusic.jamiehunter.design/
+*/
+
+/* code:
+-> https://codepen.io/anon/pen/rbzMwN
+https://stackoverflow.com/questions/11700927/horizontal-scrolling-with-mouse-wheel-in-a-div
+*/
+
+main {
+  overflow: scroll hidden;
+  position: relative;
+  width: 100vw;
+  /*height: 100vh;*/
+  -webkit-overflow-scrolling: touch;
+  scrollbar-color: transparent transparent; 
+}
+
+main::-webkit-scrollbar { 
+  display: none; 
+} 
+
+
+
+.wrapper {
+  /*display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  width: auto;*/
+}
+
+.wrapper > div {
+  pointer-events: none;
+  /*flex: 0 0 auto;*/
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+/*  display: flex;
+  justify-content: center;
+  align-items: center;*/
+}

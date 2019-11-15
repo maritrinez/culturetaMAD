@@ -37,5 +37,14 @@ csv('../data/nexts.csv', (d, i) => {
 });
 
 
+// SCROLL
+// -> https://codepen.io/anon/pen/rbzMwN
+var item = document.getElementsByTagName('MAIN')[0];
+window.addEventListener('wheel', function(e) {
+  if (e.deltaY > 0) item.scrollLeft += 30;
+  else item.scrollLeft -= 30;
+});
+
+
 // PRIVATE
 
