@@ -1,3 +1,6 @@
+// Load a stylesheet
+import '../styles/main.css'
+
 // d3 imports
 import {csv, json} from "d3-fetch";
 

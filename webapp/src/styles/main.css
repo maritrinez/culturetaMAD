@@ -1,0 +1,22 @@
+/* post css */
+
+/*@import '~_hscroll';*/
+
+
+
+
+/* VARIABLES */
+$bg-color: lightsteelblue;
+$text-color: #444;
+
+
+
+/* MAIN */
+body {
+  background: $bg-color;
+  color: $text-color;
+  font-family: Roboto, Helvetica, sans-serif;
+  padding:0;
+  margin:0;
+}
+
