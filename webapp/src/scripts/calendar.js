@@ -32,12 +32,7 @@ export class Calendar {
 
   
   // - - - PUBLIC FUNCTIONS - - - //
-  build() {
-    console.log(this._dataDomains().rows)
-    console.log(this._size())
-    console.log(this._scales().x.range())
-
-  
+  build() {  
     // inspiración estilos
     // https://www.behance.net/gallery/22277857/-Identidad-Institucional-PLANETARIO
     // https://www.behance.net/gallery/26487879/Sao-Paulo-City-Rebrand-Propose
@@ -68,7 +63,7 @@ export class Calendar {
     
     return {
       w: days * c.columnWidth,
-      h: Math.max(parentDiv.clientHeight, 600) - c.margin.top - c.margin.bottom
+      h: parentDiv.clientHeight - c.margin.top - c.margin.bottom
     }
   }
 
