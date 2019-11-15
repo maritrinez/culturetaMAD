@@ -6,6 +6,7 @@ import {csv, json} from "d3-fetch";
 
 // Classes imports
 import { Calendar } from './calendar';
+import { Hscroll } from './hscroll';
 
 // Script imports
 import { parseTime } from './config';
@@ -29,6 +30,15 @@ csv('../data/nexts.csv', (d, i) => {
     .container('#calendar')
     .build();
 
+
+  // - - - SCROLL
+  const hscroll = new Hscroll();
+  hscroll
+    .container('#hscroll')
+    .scale(calendar._scales().x)
+    .init();
+
+
   // - - - RESIZE
   window.addEventListener('resize', () => calendar.build());
 
@@ -39,11 +49,12 @@ csv('../data/nexts.csv', (d, i) => {
 
 // SCROLL
 // -> https://codepen.io/anon/pen/rbzMwN
-var item = document.getElementsByTagName('MAIN')[0];
-window.addEventListener('wheel', function(e) {
-  if (e.deltaY > 0) item.scrollLeft += 30;
-  else item.scrollLeft -= 30;
-});
+// var item = document.getElementsByTagName('MAIN')[0];
+// window.addEventListener('wheel', function(e) {
+//   if (e.deltaY > 0) item.scrollLeft += 30;
+//   else item.scrollLeft -= 30;
+// });
+
 
 
 // PRIVATE

@@ -49,10 +49,11 @@ export class Render {
 
 
     // Elements
+    this._today(3);
     this._rects();
     this._info();
     this._tickets();
-    this._today();
+    this._today(1);
   }
   
 
@@ -149,8 +150,7 @@ export class Render {
   }
 
 
-  _today() {
-    console.log(this._size)
+  _today(w) {
     // Lines
     let _l = this._svg().selectAll('.today')
       .data([new Date()]);
@@ -160,7 +160,8 @@ export class Render {
       .attr('x2', d => this._scales.x(d))
       .attr('y1', -margin.top)
       .attr('y2', this._size.h + margin.bottom)
-      .style('stroke', 'black');
+      .style('stroke', 'deeppink')
+      .style('stroke-width', w);
       
     _l.exit().remove();
   }
