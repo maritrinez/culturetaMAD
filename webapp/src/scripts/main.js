@@ -9,7 +9,7 @@ import { Calendar } from './calendar';
 import { Hscroll } from './hscroll';
 
 // Script imports
-import { parseTime } from './config';
+import { parseTime, scrollContainer, calendarContainer} from './config';
 
 
 
@@ -27,15 +27,15 @@ csv('../data/nexts.csv', (d, i) => {
   const calendar = new Calendar();
   calendar
     .data(data)
-    .container('#calendar')
+    .container(calendarContainer)
     .build();
 
 
   // - - - SCROLL
   const hscroll = new Hscroll();
   hscroll
-    .container('#hscroll')
-    .scale(calendar._scales().x)
+    .container(scrollContainer)
+    .scales(calendar._scales())
     .init();
 
 
@@ -46,14 +46,6 @@ csv('../data/nexts.csv', (d, i) => {
    throw (error);
 });
 
-
-// SCROLL
-// -> https://codepen.io/anon/pen/rbzMwN
-// var item = document.getElementsByTagName('MAIN')[0];
-// window.addEventListener('wheel', function(e) {
-//   if (e.deltaY > 0) item.scrollLeft += 30;
-//   else item.scrollLeft -= 30;
-// });
 
 
 

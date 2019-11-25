@@ -1,5 +1,8 @@
 // d3 imports
-import {select} from "d3-selection";
+import {select, selectAll} from "d3-selection";
+
+// Classes imports
+import { Render } from './renders';
 
 
 
@@ -7,7 +10,7 @@ import {select} from "d3-selection";
 export class Hscroll {
   constructor () {
     this._container = undefined;
-    this._scale = undefined;
+    this._scales = undefined;
     this.step = 30;
   }
 
@@ -18,27 +21,35 @@ export class Hscroll {
     return this;
   }
 
-  scale (_) {
-    this._scale = _;
+  scales (_) {
+    this._scales = _;
     return this;
   }
 
 
   // - - - PUBLIC FUNCTIONS - - - //
-
   init() {
-    const c = select(this._container).node();
+    const c = select(this._container).node(); 
     this._setToday(c);
 
-    window.addEventListener('wheel', function(e) {
+    // Updaters for x positions
+    const render = new Render();
+    render.scales(this._scales);
+
+
+    window.addEventListener('wheel', e => {
       if (e.deltaY > 0) c.scrollLeft += 30;
       else c.scrollLeft -= 30;
+
+      // Update info & axis x position
+      render._infoUpdate(c.scrollLeft)
     });
   }
 
+
   // - - - PRIVATE FUNCTIONS - - - //
   _setToday(c) {
-    const endX = this._scale(new Date()) - 30;
+    const endX = this._scales.x(new Date()) - 30;
 
     const ticksPerRender = 12;
     requestAnimationFrame(function render() {

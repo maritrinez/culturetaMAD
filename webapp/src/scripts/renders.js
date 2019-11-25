@@ -1,5 +1,5 @@
 // d3 imports
-import {select} from "d3-selection";
+import {select, selectAll} from "d3-selection";
 
 // Classes imports
 import { Axis } from './axis';
@@ -109,16 +109,28 @@ export class Render {
 
   _info() {
     const _g = this._enterGroup(this._svg(), 'info');
-
-    let _i = _g.selectAll('text').data(this._data);
-    _i = _i.enter()
-      .append('text').merge(_i)
-      .attr('x', d => this._scales.x(d.start_date))
+    
+    _g.selectAll('text')
+      .data(this._data)
+      .enter()
+      .append('text')
+      .attr('x', d => Math.max(this._scales.x(d.start_date), this._scales.x(new Date())))
       .attr('y', d => this._scales.y(d.row) + this._scales.y.bandwidth() / 3)
       .text(d => d.event);
-      
-    _i.exit().remove();
   }
+
+  _infoUpdate(scroll) {
+    const screenDate = this._scales.x.invert(scroll);
+
+    selectAll('.info').selectAll('text')
+      .attr('x', d => _isActive(d) ? Math.max(this._scales.x(d.start_date), scroll) : this._scales.x(d.start_date))
+
+    function _isActive(d) {
+      if (d.end_date > screenDate & d.start_date < screenDate) return true;
+      else return false;
+    }
+  }
+
 
   _tickets() {
     const _g = this._enterGroup(this._svg(), 'tickets');
@@ -165,6 +177,7 @@ export class Render {
       
     _l.exit().remove();
   }
+  
   // Helpers
   _svg () {
     return select(this._container).selectAll('svg').select('g');
@@ -172,8 +185,9 @@ export class Render {
 
   _enterGroup(selection, classed) {
     let _g = selection.selectAll(`g.${classed}`).data([{}]);
+
     _g = _g.enter()
-      .append('g')
+      .append('g').merge(_g)
       .attr('class', classed);
     return _g;
   }

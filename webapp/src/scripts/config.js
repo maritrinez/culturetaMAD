@@ -17,7 +17,9 @@ const margin = { top: 60, right: 10, bottom: 10, left: 30 },
         "variado": '#FFD700' 
       },
       columnWidth = 30,
-      rowHeight = 50;
+      rowHeight = 50,
+      scrollContainer = '#hscroll',
+      calendarContainer = '#calendar';
 
 const parseTime = timeParse('%Y-%m-%d');
 
@@ -27,5 +29,7 @@ export {
   margin, 
   colors,
   columnWidth,
-  parseTime
+  parseTime,
+  scrollContainer,
+  calendarContainer
 };
