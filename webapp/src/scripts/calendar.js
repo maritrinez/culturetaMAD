@@ -51,7 +51,7 @@ export class Calendar {
   _dataDomains() {
     return {
       date: [min(this._data, d => d.tickets), max(this._data, d => d.end_date)],
-      rows: range(+max(this._data, d => d.row) + 1)
+      rows: range(+max(this._data, d => +d.row) + 1)
     }
   }
   
