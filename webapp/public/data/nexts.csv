@@ -1,16 +1,15 @@
 edition,event,start_date,end_date,tickets,central_date,completed,verified,advanced,category,row
-36,festival internacional de jazz de madrid,2019-10-28,2019-12-01,2019-09-27,NA,future,verified,yes,música,0
-24,LesGaiCineMad,2019-10-30,2019-11-18,2019-10-18,NA,future,verified,yes,cine,1
-19,semana de la ciencia,2019-11-04,2019-11-18,2019-10-21,NA,future,verified,yes,ciencia,2
-37,festival de otoño,2019-11-15,2019-12-02,2019-09-19,NA,future,verified,yes,artes escénicas,3
-34,madrid en danza,2019-12-04,2019-12-30,NA,NA,future,estimated,yes,danza,0
+16,Acción!MAD,2019-09-13,2019-11-30,NA,NA,ongoing,verified,yes,artes escénicas,0
+36,festival internacional de jazz de madrid,2019-10-28,2019-12-01,2019-09-27,NA,ongoing,verified,yes,música,1
+37,festival de otoño,2019-11-15,2019-12-02,2019-09-19,NA,ongoing,verified,yes,artes escénicas,2
+34,madrid en danza,2019-12-03,2019-12-30,2019-11-19,NA,future,verified,yes,danza,3
 5,año nuevo chino,2020-01-09,2020-02-10,NA,25-1-2020,future,estimated,yes,interculturas,0
-30,festival internacional de arte sacro,2020-02-20,2020-04-06,NA,NA,future,estimated,yes,música,0
-24,teatralia,2020-03-05,2020-03-30,NA,NA,future,estimated,yes,teatro,1
+30,festival internacional de arte sacro,2020-02-20,2020-04-06,2020-01-30,NA,future,estimated,yes,música,1
+24,teatralia,2020-03-06,2020-03-30,NA,NA,future,estimated,yes,teatro,0
 14,la noche de los teatros,2020-03-28,2020-03-29,NA,NA,future,estimated,yes,teatro,2
-22,semana del cortometraje comunidad de madrid,2020-04-06,2020-04-13,NA,NA,future,estimated,no,cine,1
+22,semana del cortometraje comunidad de madrid,2020-04-06,2020-04-13,NA,NA,future,estimated,no,cine,0
 9,mulafest,2020-04-17,2020-04-20,NA,NA,future,verified,yes,variado,0
-3,International Jazz Day Madrid,2020-04-24,2020-05-04,2020-04-07,30-4-2020,future,estimated,yes,música,2
+3,International Jazz Day Madrid,2020-04-24,2020-05-04,2020-04-07,30-4-2020,future,estimated,yes,música,1
 15,la noche de los libros,2020-04-24,2020-04-25,NA,NA,future,estimated,no,literatura,0
 7,surge madrid,2020-05-06,2020-06-01,NA,NA,future,estimated,yes,teatro,0
 17,documentamadrid,2020-05-07,2020-05-18,NA,NA,future,estimated,yes,cine,1
@@ -36,4 +35,5 @@ edition,event,start_date,end_date,tickets,central_date,completed,verified,advanc
 8,nocturna,2020-10-20,2020-10-25,2020-10-09,NA,future,estimated,yes,cine,6
 6,another way film festival,2020-10-22,2020-10-26,2020-09-22,NA,future,estimated,yes,cine,8
 3,firco,2020-10-23,2020-10-26,2020-09-29,NA,future,estimated,yes,circo,9
-17,Acción!MAD,2020-10-30,2020-11-28,NA,NA,future,estimated,yes,artes escénicas,0
+25,LesGaiCineMad,2020-10-28,2020-11-16,2020-10-16,NA,future,estimated,yes,cine,7
+20,semana de la ciencia,2020-11-02,2020-11-16,2020-10-19,NA,future,estimated,yes,ciencia,10
