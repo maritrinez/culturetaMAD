@@ -1,8 +1,8 @@
 // d3 imports
 import {select} from "d3-selection";
 import {axisTop} from "d3-axis";
-import {timeFormatLocale} from "d3-time-format"
-import {timeDay, timeMonth} from "d3-time"
+import {timeFormatLocale} from "d3-time-format";
+import {timeDay, timeMonth} from "d3-time";
 
 
 // Constants
@@ -13,12 +13,11 @@ const locale = timeFormatLocale({
       "date": "%d.%m.%Y",
       "time": "%H:%M:%S",
       "periods": ["AM", "PM"],
-      "days": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-      "shortDays": ["L", "M", "M", "J", "V", "S", "D"],
+      "days": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+      "shortDays": ["D", "L", "M", "M", "J", "V", "S"],
       "months": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
       "shortMonths": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
     });
-
 
 
 export class Axis {
@@ -60,9 +59,14 @@ export class Axis {
       .attr('transform', `translate(0, ${this._dy})`)
 
     _g.call(this._axis());
-  }
 
   
+
+    _g.selectAll('text')
+      .attr('text-anchor', this._textAnchor())
+      .attr('dx', this._dx())
+  }
+
   // - - - PRIVATE FUNCTIONS - - - //
   _axis () {
     return axisTop(this._scale)
@@ -76,6 +80,26 @@ export class Axis {
   }
 
   _format () {
-    return this._frequency == 'daily' ? locale.format('%a %d') : locale.format('%B');
+    return this._frequency == 'daily' ? locale.format('%a%d') : locale.format('%B');
+  }
+
+  _dx () {
+    switch (this._frequency) {
+      case 'daily':
+        return this._scale(timeDay.offset(this._scale.domain()[0], 1))  / 2;
+        break;
+      default:
+        return 5;
+    }
+  }
+
+  _textAnchor () {
+    switch (this._frequency) {
+      case 'daily':
+        return 'middle';
+        break;
+      default:
+        return 'start';
+    }
   }
 }
